@@ -1,26 +1,26 @@
 
 public class FilaCircular {
 
-    private No fim;
+    private No cauda;
 
     public FilaCircular() {
-        fim = null;
+        cauda = null;
     }
 
     public boolean estaVazia() {
-        return fim == null;
+        return cauda == null;
     }
 
     public void enfileirar(int valor) {
         No novo = new No(valor);
 
         if (estaVazia()) {
-            fim = novo;
-            fim.prox = fim;
+            cauda = novo;
+            cauda.prox = cauda;
         } else {
-            novo.prox = fim.prox;
-            fim.prox = novo;
-            fim = novo;
+            novo.prox = cauda.prox;
+            cauda.prox = novo;
+            cauda = novo;
         }
     }
 
@@ -29,13 +29,13 @@ public class FilaCircular {
             throw new IllegalStateException("Fila vazia");
         }
 
-        No inicio = fim.prox;
+        No inicio = cauda.prox;
         int valor = inicio.valor;
 
-        if (inicio == fim) {
-            fim = null;
+        if (inicio == cauda) {
+            cauda = null;
         } else {
-            fim.prox = inicio.prox;
+            cauda.prox = inicio.prox;
         }
 
         return valor;
@@ -47,12 +47,12 @@ public class FilaCircular {
             return;
         }
 
-        No atual = fim.prox;
+        No atual = cauda.prox;
 
         do {
             System.out.print(atual.valor + " ");
             atual = atual.prox;
-        } while (atual != fim.prox);
+        } while (atual != cauda.prox);
 
         System.out.println();
     }

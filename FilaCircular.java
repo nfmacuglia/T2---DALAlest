@@ -1,4 +1,3 @@
-
 public class FilaCircular {
 
     private No cauda;
@@ -59,5 +58,67 @@ public class FilaCircular {
 
             System.out.println(cauda.valor);
         }
+    }
+
+    public FilaCircular[] dividir() {
+        FilaCircular impares = new FilaCircular();
+        FilaCircular pares = new FilaCircular();
+
+        if (cauda == null) {
+            return new FilaCircular[] { impares, pares };
+        }
+
+        No ultimo = cauda;      
+        No atual = cauda.prox;  
+
+        No primeiroImpar = null;
+        No ultimoImpar = null;
+        No primeiroPar = null;
+        No ultimoPar = null;
+
+        boolean ehImpar = true; 
+        boolean terminou = false;
+
+        while (!terminou) {
+            No proximo = atual.prox;
+
+            if (atual == ultimo) {
+                terminou = true;
+            }
+
+            if (ehImpar) {
+                if (ultimoImpar == null) {
+                    primeiroImpar = atual;      
+                } else {
+                    ultimoImpar.prox = atual;
+                }
+                ultimoImpar = atual;
+            } else {
+             
+                if (ultimoPar == null) {
+                    primeiroPar = atual;       
+                } else {
+                    ultimoPar.prox = atual;
+                }
+                ultimoPar = atual;
+            }
+
+            ehImpar = !ehImpar; 
+            atual = proximo;    
+        }
+
+        if (ultimoImpar != null) {
+            ultimoImpar.prox = primeiroImpar;
+        }
+        if (ultimoPar != null) {
+            ultimoPar.prox = primeiroPar;
+        }
+
+        impares.cauda = ultimoImpar;
+        pares.cauda = ultimoPar;
+
+        cauda = null; 
+
+        return new FilaCircular[] { impares, pares };
     }
 }
